@@ -1,7 +1,7 @@
 /**
  * Your implementation of an array-backed stack.
  *
- * @author YOUR NAME HERE
+ * @author John Blasco jblasco6
  * @version 1.0
  */
 public class ArrayStack<T> implements StackInterface<T> {
@@ -13,13 +13,15 @@ public class ArrayStack<T> implements StackInterface<T> {
     /**
      * Constructs a new ArrayStack.
      */
+    @SuppressWarnings("unchecked")
     public ArrayStack() {
-
+        backingArray = (T[]) new Object[INITIAL_CAPACITY];
+        size = 0;
     }
 
     @Override
     public boolean isEmpty() {
-        return true;
+        return size == 0;
     }
 
     /**
@@ -31,7 +33,12 @@ public class ArrayStack<T> implements StackInterface<T> {
      */
     @Override
     public T pop() {
-        return null;
+        if (size == 0) {
+            throw new java.util.NoSuchElementException("The stack is empty.");
+        }
+        T temp = backingArray[--size];
+        backingArray[size] = null;
+        return temp;
     }
 
     /**
@@ -43,14 +50,29 @@ public class ArrayStack<T> implements StackInterface<T> {
      *
      * @see StackInterface#push(T)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void push(T data) {
-        return;
+        if (data == null) {
+            throw new IllegalArgumentException("Input data is null.");
+        }
+
+        // Resize if needed
+        if (size == backingArray.length) {
+            T[] temp = (T[]) new Object[2 * backingArray.length + 1];
+            for (int i = 0; i < backingArray.length; ++i) {
+                temp[i] = backingArray[i];
+            }
+            backingArray = temp;
+        }
+
+        backingArray[size] = data;
+        ++size;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**

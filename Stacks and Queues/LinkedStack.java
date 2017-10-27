@@ -1,7 +1,7 @@
 /**
  * Your implementation of a linked stack.
  *
- * @author YOUR NAME HERE
+ * @author John Blasco jblasco6
  * @version 1.0
  */
 public class LinkedStack<T> implements StackInterface<T> {
@@ -12,22 +12,35 @@ public class LinkedStack<T> implements StackInterface<T> {
 
     @Override
     public boolean isEmpty() {
-        return true;
+        return size == 0;
     }
 
     @Override
     public T pop() {
-        return null;
+        if (size == 0) {
+            throw new java.util.NoSuchElementException("The stack is Empty");
+        }
+
+        T temp = head.getData();
+        head = head.getNext();
+        --size;
+
+        return temp;
     }
 
     @Override
     public void push(T data) {
-        return;
+        if (data == null) {
+            throw new IllegalArgumentException("Input data is null");
+        }
+
+        head = new LinkedNode<T>(data, head);
+        ++size;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**

@@ -1,7 +1,9 @@
+import java.util.NoSuchElementException;
+
 /**
  * Your implementation of a linked queue.
  *
- * @author YOUR NAME HERE
+ * @author John Blasco jblasco6
  * @version 1.0
  */
 public class LinkedQueue<T> implements QueueInterface<T> {
@@ -13,22 +15,44 @@ public class LinkedQueue<T> implements QueueInterface<T> {
 
     @Override
     public T dequeue() {
-        return null;
+        if (size == 0) {
+            throw new NoSuchElementException("The queue is empty.");
+        }
+
+        T temp = head.getData();
+        head = head.getNext();
+        if (size == 1) {
+            tail = null;
+        }
+        --size;
+        return temp;
+
     }
 
     @Override
     public void enqueue(T data) {
-        return;
+        if (data == null) {
+            throw new java.lang.IllegalArgumentException("Input data is null.");
+        }
+
+        if (size == 0) {
+            tail = new LinkedNode<T>(data);
+            head = tail;
+        } else {
+            tail.setNext(new LinkedNode<T>(data));
+            tail = tail.getNext();
+        }
+        ++size;
     }
 
     @Override
     public boolean isEmpty() {
-        return true;
+        return size == 0;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**

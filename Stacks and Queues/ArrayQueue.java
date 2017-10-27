@@ -1,7 +1,9 @@
+import java.util.NoSuchElementException;
+
 /**
  * Your implementation of an array-backed queue.
  *
- * @author YOUR NAME HERE
+ * @author John Blasco jblasco6
  * @version 1.0
  */
 public class ArrayQueue<T> implements QueueInterface<T> {
@@ -18,8 +20,12 @@ public class ArrayQueue<T> implements QueueInterface<T> {
     /**
      * Constructs a new ArrayQueue.
      */
+    @SuppressWarnings("unchecked")
     public ArrayQueue() {
-
+        backingArray = (T[]) new Object[INITIAL_CAPACITY];
+        front = 0;
+        back = 0;
+        size = 0;
     }
 
     /**
@@ -33,7 +39,19 @@ public class ArrayQueue<T> implements QueueInterface<T> {
      */
     @Override
     public T dequeue() {
-        return null;
+        if (size == 0) {
+            throw new NoSuchElementException("The queue is empty.");
+        }
+        --size;
+        T temp = backingArray[front];
+        backingArray[front] = null;
+
+        if (front == backingArray.length - 1) {
+            front = 0;
+        } else {
+            ++front;
+        }
+        return temp;
     }
 
     /**
@@ -46,19 +64,46 @@ public class ArrayQueue<T> implements QueueInterface<T> {
      *
      * @see QueueInterface#enqueue(T)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void enqueue(T data) {
-        return;
+        if (data == null) {
+            throw new IllegalArgumentException("The input data is null.");
+        }
+        // Resize if needed
+        if (back == front && size != 0) {
+            T[] temp = (T[]) new Object[backingArray.length * 2 + 1];
+            for (int i = front; i < backingArray.length; ++i) {
+                temp[i - front] = backingArray[i];
+            }
+            if (front != 0) {
+                for (int i = 0; i < back; ++i) {
+                    temp[backingArray.length - front + i] = backingArray[i];
+                }
+            }
+            backingArray = temp;
+            front = 0;
+            back = size;
+        }
+
+        ++size;
+        backingArray[back] = data;
+
+        if (back == backingArray.length - 1) {
+            back = 0;
+        } else {
+            ++back;
+        }
     }
 
     @Override
     public boolean isEmpty() {
-        return true;
+        return size == 0;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
