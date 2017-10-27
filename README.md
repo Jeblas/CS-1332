@@ -3,8 +3,8 @@ Data Structures and Algorithms
 ## Course Objectives
 * Develop more skills in individual Java programming
 * Work with common data structures used in software development by coding their low-level implementation
-..* Arrays, ArrayLists,
-..* LinkedLists (Singular, Doubly, Circular)
+** Arrays, ArrayLists,
+** LinkedLists (Singular, Doubly, Circular)
 ..* Stack, Queues, Deques, Priority Queues
 ..* Various Trees; Binary, Binary Search, AVL, Splay, Heaps, 2-4 Trees, etc…
 ..* Hash Maps/Tables; External Chaining and Probing
