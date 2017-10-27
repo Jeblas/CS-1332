@@ -1,5 +1,5 @@
 # CS-1332
-Data Structures and Algorithms
+Data Structures and Algorithms (Java)
 ## Course Objectives
 * Develop more skills in individual Java programming
 * Work with common data structures used in software development by coding their low-level implementation
